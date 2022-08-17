@@ -1,0 +1,46 @@
+.bg{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top:0;
+    z-index: 1;
+}
+
+.header{
+    width: 90%;
+    max-width: 1000px;
+}
+
+.main{
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.icons{
+    z-index: 2;
+    position: absolute;
+    display: flex;
+    top: 0;
+    color: white;
+    font-size: 2rem;
+    width: 90%;
+    justify-content: space-between;
+    padding-top: 2rem;
+    margin: 0;
+}
+
+.iconH{
+    display: flex;
+    width: 100px;
+    flex-direction: row;
+}
+.iconLeft{
+    display: flex;
+    width: 200px;
+}
+.iconLeft p{
+    margin: 0;
+    font-size: 1.5rem;
+    padding-top: 0.2rem;
+}

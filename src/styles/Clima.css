@@ -1,0 +1,33 @@
+.ShowG{
+    width: 95vw;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+}
+.grados{
+    display: flex;
+    z-index: 2;
+    position: relative;
+    font-size:8rem;
+    font-weight: 600;
+    color: white;
+    margin-left: 1rem;
+}
+
+.Status{
+    display: flex;
+    color: white;
+    z-index: 2;
+    font-size: 2rem;
+    transform: rotate(90deg);
+    transform-origin: left top 0;
+    margin-top: 10rem;
+    margin-right: -70px;
+}
+
+
+
+
+
+

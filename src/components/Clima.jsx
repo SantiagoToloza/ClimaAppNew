@@ -2,8 +2,9 @@ import '../styles/Clima.css'
 
 const Clima = () => {
   return (
-    <div>
-        <p>30gradelis</p>
+    <div className='ShowG'>
+        <p className='grados'>30°</p>
+        <p className='Status'>Soleado</p>
     </div>
   )
 }

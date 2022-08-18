@@ -15,6 +15,7 @@
     width: 90%;
     max-width: 1000px;
     margin: 0 auto;
+    height: auto;
 }
 
 .icons{
@@ -38,6 +39,7 @@
 .iconLeft{
     display: flex;
     width: 200px;
+    justify-content: flex-start;
 }
 .iconLeft p{
     margin: 0;

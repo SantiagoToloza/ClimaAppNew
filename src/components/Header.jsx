@@ -17,7 +17,7 @@ import { RiMenu5Fill } from "react-icons/ri";
 const Header = () => {
   return (
     <div className="header">
-      <img src={afternoon} alt="" className="bg" />
+      <img src={snow} alt="" className="bg" />
       <div className="main">
         <div className="icons">
           <div className="iconLeft">

@@ -1,11 +1,11 @@
 import axios from 'axios'
-import { createContext, useState } from "react";
+import { createContext, useState,useEffect } from "react";
 
 const ClimaContext = createContext();
 
 const ClimaProvider = ({ children }) => {
   const [busqueda, setBusqueda] = useState({
-    ciudad: "",
+    ciudad: "berisso",
   });
 
   const [resultado, setResultado] = useState({})
@@ -14,19 +14,30 @@ const ClimaProvider = ({ children }) => {
   const { ciudad, pais } = busqueda;
 
 
-  const realizarBusqueda = async (e) => {
-    const apiKey = import.meta.env.VITE_api_key;
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=${apiKey}`;
-    console.log(url);
-    try {
-      const { data } = await axios.get(url);
-      setResultado(data)
 
-      
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
+  useEffect(() => {
+    const realizarBusqueda = async (e) => {
+      const apiKey = import.meta.env.VITE_api_key;
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=${apiKey}`;
+      console.log(url);
+      try {
+        const { data } = await axios.get(url);
+        setResultado(data)
+        console.log(resultado)
+        
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    realizarBusqueda()  
+  }, [])
+  
+
+
+  
+
 
  
 
@@ -42,7 +53,6 @@ const ClimaProvider = ({ children }) => {
       value={{
         busqueda,
         datosBusqueda,
-        realizarBusqueda,
         resultado
       }}
     >

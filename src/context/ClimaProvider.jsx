@@ -5,7 +5,7 @@ const ClimaContext = createContext();
 
 const ClimaProvider = ({ children }) => {
   const [busqueda, setBusqueda] = useState({
-    ciudad: "berisso",
+    ciudad: "La Plata",
   });
 
   const [resultado, setResultado] = useState({})

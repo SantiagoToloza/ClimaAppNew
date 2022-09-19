@@ -1,5 +1,5 @@
-import axios from 'axios'
-import { createContext, useState,useEffect } from "react";
+import axios from "axios";
+import { createContext, useState, useEffect } from "react";
 
 const ClimaContext = createContext();
 
@@ -8,38 +8,49 @@ const ClimaProvider = ({ children }) => {
     ciudad: "La Plata",
   });
 
-  const [resultado, setResultado] = useState({})
-
+  const [resultado, setResultado] = useState({});
 
   const { ciudad, pais } = busqueda;
+  const [lat, setLat] = useState(null);
+  const [lng, setLng] = useState();
+  const [status, setStatus] = useState(null);
 
-
-
+  console.log(lat);
 
   useEffect(() => {
-    const realizarBusqueda = async (e) => {
-      const apiKey = import.meta.env.VITE_api_key;
-      const url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=${apiKey}`;
-      console.log(url);
-      try {
-        const { data } = await axios.get(url);
-        setResultado(data)
-        console.log(resultado)
-        
-      } catch (error) {
-        console.log(error);
-      }
-    };
-  
-    realizarBusqueda()  
-  }, [])
-  
+    if (!navigator.geolocation) {
+      setStatus("Geolocation is not supported by your browser");
+    } else {
+      setStatus("Locating...");
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setStatus(null);
+          setLat(position.coords.latitude);
+          setLng(position.coords.longitude);
+        },
+        () => {
+          setStatus("Unable to retrieve your location");
+        }
+      );
+    }
+    if (lat != null) {
+      realizarBusqueda();
+    }
+  }, [lat]);
 
+  const realizarBusqueda = async () => {
+    const apiKey = import.meta.env.VITE_api_key;
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${apiKey}`;
+    console.log(url);
+    try {
+      const { data } = await axios.get(url);
+      setResultado(data);
+      console.log(data)
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  
-
-
- 
 
   const datosBusqueda = (e) => {
     setBusqueda({
@@ -53,7 +64,7 @@ const ClimaProvider = ({ children }) => {
       value={{
         busqueda,
         datosBusqueda,
-        resultado
+        resultado,
       }}
     >
       {children}

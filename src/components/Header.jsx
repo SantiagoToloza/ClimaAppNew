@@ -18,9 +18,16 @@ import useClima from "../Hooks/useClima";
 const Header = () => {
   const {busqueda} = useClima()
   const {ciudad} = busqueda
+
+
+
+
+ 
+
+
   return (
     <div className="header">
-      <img src={afternoon} alt="" className="bg" />
+      <img src={storm} alt="" className="bg" />
       <div className="main">
         <div className="icons">
           <div className="iconLeft">

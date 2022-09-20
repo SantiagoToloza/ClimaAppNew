@@ -8,7 +8,7 @@ import useClima from "../Hooks/useClima";
 
 const Header = () => {
   const { busqueda, resultado } = useClima();
-  const { ciudad } = busqueda;
+  // const { ciudad } = busqueda;
   const [imagen, setImagen] = useState();
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const Header = () => {
         <div className="icons">
           <div className="iconLeft">
             <HiOutlineLocationMarker className="iconH" />
-            <p>{ciudad}</p>
+            <p>{resultado.name}</p>
           </div>
           <RiMenu5Fill className="iconH" />
         </div>

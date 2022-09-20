@@ -1,7 +1,9 @@
+
+
 const weekClimate = () => {
   return (
     <div>
-        
+
     </div>
   )
 }

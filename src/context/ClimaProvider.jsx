@@ -5,16 +5,16 @@ const ClimaContext = createContext();
 
 const ClimaProvider = ({ children }) => {
   const [busqueda, setBusqueda] = useState({
-    ciudad: "La Plata",
+    ciudad: '',
   });
-
+  
   const [resultado, setResultado] = useState({});
-
   const { ciudad, pais } = busqueda;
+
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState();
   const [status, setStatus] = useState(null);
-
+  const [climaDias, setClimaDias] = useState([])
   console.log(lat);
 
   useEffect(() => {
@@ -35,8 +35,22 @@ const ClimaProvider = ({ children }) => {
     }
     if (lat != null) {
       realizarBusqueda();
+      realizarDias();
     }
   }, [lat]);
+
+  const realizarDias = async ()=>{
+    const apiKey = import.meta.env.VITE_api_key;
+    const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&appid=${apiKey}`
+    console.log(url)
+    try {
+      const {data} = await axios.get(url);
+      setClimaDias(data)
+      console.log(data)
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const realizarBusqueda = async () => {
     const apiKey = import.meta.env.VITE_api_key;

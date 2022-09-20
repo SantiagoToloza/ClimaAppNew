@@ -1,15 +1,14 @@
 import "../styles/Clima.css";
 import useClima from "../Hooks/useClima";
-import ActuallyState from "../helpers/State";
 
 const Clima = () => {
   const { resultado } = useClima();
   const { main } = resultado;
   const Kelvin = 273.15;
-  console.log(resultado);
-  ActuallyState("cloud");
+  
   return (
     <div className="ShowG">
+      {/* {resultado && <p>{resultado.weather[0].main} </p>} */}
       {resultado?.name && (
         <>
           <p className="Status">{resultado.weather[0].description}</p>

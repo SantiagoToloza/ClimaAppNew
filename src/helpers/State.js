@@ -1,10 +1,25 @@
-export default function ActuallyState(state){
-  switch (state) {
-    case 'cloud':
-      console.log('hay nubes');
-      break;
-    default:
-      break;
-  }
-}
-
+import {
+  rain,
+  night,
+  cloud,
+  earth,
+  afternoon,
+  snow,
+  sunset,
+  wind,
+  storm,
+} from "../../src/img/index";
+const revisarClima = (state) => {
+  const actual = state
+  const total_climate = {
+    Thunderstorm: storm,
+    Rain: rain,
+    Snow: snow,
+    Clear: afternoon,
+    Clouds: cloud,
+  };
+  const objDefault = earth;
+  const revisar = total_climate[actual] || objDefault;
+  return revisar
+};
+export default revisarClima;

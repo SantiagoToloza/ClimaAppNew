@@ -1,33 +1,25 @@
-import {
-  rain,
-  night,
-  cloud,
-  earth,
-  afternoon,
-  snow,
-  sunset,
-  wind,
-  storm,
-} from "../../src/img/index";
 import "../styles/Header.css";
-
+import { useState, useEffect } from "react";
 import Clima from "./Clima";
 import { HiOutlineLocationMarker } from "react-icons/hi";
+import revisarClima from "../helpers/State";
 import { RiMenu5Fill } from "react-icons/ri";
 import useClima from "../Hooks/useClima";
+
 const Header = () => {
-  const {busqueda} = useClima()
-  const {ciudad} = busqueda
+  const { busqueda, resultado } = useClima();
+  const { ciudad } = busqueda;
+  const [imagen, setImagen] = useState();
 
-
-
-
- 
-
+  useEffect(() => {
+    if (resultado?.main) {
+      setImagen(revisarClima(resultado.weather[0].main));
+    }
+  }, [resultado]);
 
   return (
     <div className="header">
-      <img src={storm} alt="" className="bg" />
+      {resultado?.name && <img src={imagen} alt="" className="bg" />}
       <div className="main">
         <div className="icons">
           <div className="iconLeft">
@@ -36,8 +28,7 @@ const Header = () => {
           </div>
           <RiMenu5Fill className="iconH" />
         </div>
-        <Clima/>
-
+        <Clima />
       </div>
     </div>
   );

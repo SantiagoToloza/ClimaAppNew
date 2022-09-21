@@ -2,22 +2,25 @@ import axios from "axios";
 import { createContext, useState, useEffect } from "react";
 
 const ClimaContext = createContext();
+const apiKey = import.meta.env.VITE_api_key;
 
 const ClimaProvider = ({ children }) => {
   const [busqueda, setBusqueda] = useState({
-    ciudad: '',
+    ciudad: "",
+    pais: "",
   });
-  
+
   const [resultado, setResultado] = useState({});
   const { ciudad, pais } = busqueda;
 
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState();
   const [status, setStatus] = useState(null);
-  const [climaDias, setClimaDias] = useState([])
+  const [location, setLocation] = useState(false);
+  const [guardarCiudad, setGuardarCiudad] = useState([]);
   console.log(lat);
 
-  useEffect(() => {
+  const buscarLocalidad = () => {
     if (!navigator.geolocation) {
       setStatus("Geolocation is not supported by your browser");
     } else {
@@ -35,38 +38,32 @@ const ClimaProvider = ({ children }) => {
     }
     if (lat != null) {
       realizarBusqueda();
-      realizarDias();
     }
-  }, [lat]);
-
-  const realizarDias = async ()=>{
-    const apiKey = import.meta.env.VITE_api_key;
-    const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&appid=${apiKey}`
-    console.log(url)
-    try {
-      const {data} = await axios.get(url);
-      setClimaDias(data)
-      console.log(data)
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  };
 
   const realizarBusqueda = async () => {
-    const apiKey = import.meta.env.VITE_api_key;
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${apiKey}`;
     console.log(url);
     try {
       const { data } = await axios.get(url);
       setResultado(data);
-      console.log(data)
+      setGuardarCiudad([...guardarCiudad, data]);
+      console.log(data);
     } catch (error) {
       console.log(error);
     }
   };
 
+  const busquedaManual = async (e) => {
+    e.preventDefault();
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=${apiKey}`;
+    const { data } = await axios(url);
+    setResultado(data);
+    console.log(data);
+  };
 
   const datosBusqueda = (e) => {
+    e.preventDefault();
     setBusqueda({
       ...busqueda,
       [e.target.name]: e.target.value,
@@ -79,6 +76,11 @@ const ClimaProvider = ({ children }) => {
         busqueda,
         datosBusqueda,
         resultado,
+        guardarCiudad,
+        busqueda,
+        datosBusqueda,
+        busquedaManual,
+        buscarLocalidad,
       }}
     >
       {children}

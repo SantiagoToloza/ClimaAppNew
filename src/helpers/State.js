@@ -18,8 +18,9 @@ const revisarClima = (state) => {
     Clear: afternoon,
     Clouds: cloud,
   };
-  const objDefault = earth;
+  const objDefault = cloud;
   const revisar = total_climate[actual] || objDefault;
   return revisar
+  ;
 };
 export default revisarClima;

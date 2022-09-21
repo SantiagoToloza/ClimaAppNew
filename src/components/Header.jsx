@@ -5,6 +5,9 @@ import { HiOutlineLocationMarker } from "react-icons/hi";
 import revisarClima from "../helpers/State";
 import { RiMenu5Fill } from "react-icons/ri";
 import useClima from "../Hooks/useClima";
+import OthersCitys from "./OthersCitys";
+import Formulario from "./Formulario";
+import {earth} from "../../src/img/index";
 
 const Header = () => {
   const { busqueda, resultado } = useClima();
@@ -14,12 +17,16 @@ const Header = () => {
   useEffect(() => {
     if (resultado?.main) {
       setImagen(revisarClima(resultado.weather[0].main));
+    }else{
+      setImagen(earth)
     }
   }, [resultado]);
 
   return (
     <div className="header">
-      {resultado?.name && <img src={imagen} alt="" className="bg" />}
+      <Formulario/>
+
+      {<img src={imagen} alt="" className="bg" /> }
       <div className="main">
         <div className="icons">
           <div className="iconLeft">
@@ -29,7 +36,11 @@ const Header = () => {
           <RiMenu5Fill className="iconH" />
         </div>
         <Clima />
+        <OthersCitys/>
+
+
       </div>
+
     </div>
   );
 };

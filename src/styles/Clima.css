@@ -12,12 +12,14 @@
 .grados{
     display: flex;
     position: relative;
-    font-size: 8rem;
+    font-size: 7rem;
     font-weight: 600;
     color: white;
     padding: 0;
     margin: 0;
-    z-index: 2;}
+    z-index: 2;
+    text-align: center;
+}
 
 
 .temp{

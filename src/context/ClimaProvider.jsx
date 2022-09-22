@@ -47,6 +47,9 @@ const ClimaProvider = ({ children }) => {
     try {
       const { data } = await axios.get(url);
       setResultado(data);
+      if(guardarCiudad.name.includes(data.name)){
+        console.log('esta duplicado')
+      }
       setGuardarCiudad([...guardarCiudad, data]);
       console.log(data);
     } catch (error) {
@@ -58,7 +61,9 @@ const ClimaProvider = ({ children }) => {
     e.preventDefault();
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=${apiKey}`;
     const { data } = await axios(url);
+
     setResultado(data);
+    setGuardarCiudad([...guardarCiudad, data]);
     console.log(data);
   };
 

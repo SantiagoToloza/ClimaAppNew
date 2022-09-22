@@ -1,24 +1,25 @@
-.bg{
+.bg {
     position: absolute;
     width: 100vw;
     height: 100vh;
-    top:0;
+    top: 0;
     z-index: 1;
 }
 
-.header{
+.header {
     width: 90%;
     max-width: 1000px;
+    height: 100vh;
 }
 
-.main{
+.main {
     width: 90%;
     max-width: 1000px;
     margin: 0 auto;
     height: auto;
 }
 
-.icons{
+.icons {
     z-index: 2;
     position: absolute;
     display: flex;
@@ -31,18 +32,46 @@
     margin: 0;
 }
 
-.iconH{
+.iconH {
     display: flex;
     width: 100px;
     flex-direction: row;
 }
-.iconLeft{
+
+.iconLeft {
     display: flex;
     width: 200px;
     justify-content: flex-start;
 }
-.iconLeft p{
+
+.iconLeft p {
     margin: 0;
     font-size: 1.5rem;
     padding-top: 0.2rem;
+}
+
+
+.verMas {
+    z-index: 40;
+    color: white;
+    font-size: 2rem;
+    display: flex;
+    position: absolute;
+
+    justify-content: center;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-bottom: 40px;
+
+
+
+}
+
+.bajar {
+    color: white;
+    font-size: 2rem;
+    z-index: 45;
+
+
 }

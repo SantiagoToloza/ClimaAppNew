@@ -1,10 +1,20 @@
+import useClima from "../Hooks/useClima";
 import "../styles/Oc.css";
+import City from "./City";
 
 const OthersCitys = () => {
+  const { guardarCiudad } = useClima();
+  console.log(guardarCiudad);
   return (
-    <div className="mostrar">
-      <h1>OthersCitys</h1>
-    </div>
+    <>
+      { guardarCiudad && 
+        <div className="mainOthers">
+          {guardarCiudad.map((ciudad) => (
+            <City ciudad={ciudad} key={ciudad.name} />
+          ))}
+        </div>
+      }
+    </>
   );
 };
 export default OthersCitys;

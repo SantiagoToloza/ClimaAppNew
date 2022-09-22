@@ -7,7 +7,8 @@ import { RiMenu5Fill } from "react-icons/ri";
 import useClima from "../Hooks/useClima";
 import OthersCitys from "./OthersCitys";
 import Formulario from "./Formulario";
-import {earth} from "../../src/img/index";
+import { earth } from "../../src/img/index";
+import { BsChevronDoubleDown } from "react-icons/bs";
 
 const Header = () => {
   const { busqueda, resultado } = useClima();
@@ -17,16 +18,16 @@ const Header = () => {
   useEffect(() => {
     if (resultado?.main) {
       setImagen(revisarClima(resultado.weather[0].main));
-    }else{
-      setImagen(earth)
+    } else {
+      setImagen(earth);
     }
   }, [resultado]);
 
   return (
     <div className="header">
-      <Formulario/>
+      <Formulario />
 
-      {<img src={imagen} alt="" className="bg" /> }
+      {<img src={imagen} alt="" className="bg" />}
       <div className="main">
         <div className="icons">
           <div className="iconLeft">
@@ -36,11 +37,10 @@ const Header = () => {
           <RiMenu5Fill className="iconH" />
         </div>
         <Clima />
-        <OthersCitys/>
-
-
+        <div className="verMas">
+          <BsChevronDoubleDown className="bajar"/>
+        </div>
       </div>
-
     </div>
   );
 };

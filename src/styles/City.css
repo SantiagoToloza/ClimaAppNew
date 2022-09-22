@@ -1,0 +1,41 @@
+.mainCity {
+    width: 30%;
+    height: auto;
+    padding: 1rem;
+    height: 200px;
+    margin: 1rem;
+    background-color: white;
+    border-radius: 20px;
+    text-align: center;
+
+
+
+}
+
+.card {
+    background-color: white;
+    height: 100%;
+
+}
+
+.infoGrados {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+
+}
+
+.nameCity {
+    font-size: 25px;
+    font-weight: 600;
+    padding: 0;
+    margin: 0;
+
+}
+
+.gradosCity{
+    font-weight: 600;
+    font-size: 20px;
+    padding: 0;
+    margin: 0;
+}

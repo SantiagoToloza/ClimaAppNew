@@ -38,7 +38,12 @@ const Header = () => {
         </div>
         <Clima />
         <div className="verMas">
-          <BsChevronDoubleDown className="bajar"/>
+          {resultado?.main && (
+            <>
+              <p>Add More Citys</p> 
+              <BsChevronDoubleDown className="bajar" />
+            </>
+          )}
         </div>
       </div>
     </div>

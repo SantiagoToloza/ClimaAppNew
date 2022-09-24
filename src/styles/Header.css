@@ -56,22 +56,26 @@
     color: white;
     font-size: 2rem;
     display: flex;
-    position: absolute;
-
     justify-content: center;
-    bottom: 0;
+    margin-bottom: 40px;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
     left: 0;
     right: 0;
-    margin-bottom: 40px;
-
-
-
+    gap: 1rem;
 }
-
+.verMas p{
+    padding: 0;
+    margin: 0;
+}
 .bajar {
     color: white;
     font-size: 2rem;
     z-index: 45;
+    margin: 0;
+    padding: 0;
 
 
 }

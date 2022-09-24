@@ -18,6 +18,7 @@ const ClimaProvider = ({ children }) => {
   const [status, setStatus] = useState(null);
   const [location, setLocation] = useState(false);
   const [guardarCiudad, setGuardarCiudad] = useState([]);
+  const [guardarId, setGuardarId] = useState([]);
   console.log(lat);
 
   const buscarLocalidad = () => {
@@ -46,11 +47,13 @@ const ClimaProvider = ({ children }) => {
     console.log(url);
     try {
       const { data } = await axios.get(url);
-      setResultado(data);
-      if(guardarCiudad.name.includes(data.name)){
-        console.log('esta duplicado')
+
+      setGuardarId([...guardarId, data.id]);
+      if (!guardarId.includes(data.id)) {
+        setResultado(data);
+        setGuardarCiudad([...guardarCiudad, data]);
+        console.log(data);
       }
-      setGuardarCiudad([...guardarCiudad, data]);
       console.log(data);
     } catch (error) {
       console.log(error);
@@ -62,9 +65,12 @@ const ClimaProvider = ({ children }) => {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=${apiKey}`;
     const { data } = await axios(url);
 
-    setResultado(data);
-    setGuardarCiudad([...guardarCiudad, data]);
-    console.log(data);
+    setGuardarId([...guardarId, data.id]);
+    if (!guardarId.includes(data.id)) {
+      setResultado(data);
+      setGuardarCiudad([...guardarCiudad, data]);
+      console.log(data);
+    }
   };
 
   const datosBusqueda = (e) => {
@@ -73,6 +79,14 @@ const ClimaProvider = ({ children }) => {
       ...busqueda,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const eliminarCiudad = (id) => {
+    console.log(id);
+    const eliminando = guardarCiudad.filter((elim) => id !== elim.id);
+    const eliminandoId = guardarId.filter((elimId) => id !== elimId);
+    setGuardarCiudad(eliminando);
+    setGuardarId(eliminandoId);
   };
 
   return (
@@ -86,6 +100,7 @@ const ClimaProvider = ({ children }) => {
         datosBusqueda,
         busquedaManual,
         buscarLocalidad,
+        eliminarCiudad,
       }}
     >
       {children}

@@ -3,4 +3,5 @@
     background-color: #3641a7;
     height: auto;
     flex-wrap: wrap;
+    justify-content: center;
 }

@@ -4,7 +4,6 @@ import City from "./City";
 
 const OthersCitys = () => {
   const { guardarCiudad } = useClima();
-  console.log(guardarCiudad);
   return (
     <>
       { guardarCiudad && 

@@ -9,6 +9,7 @@ import OthersCitys from "./OthersCitys";
 import Formulario from "./Formulario";
 import { earth } from "../../src/img/index";
 import { BsChevronDoubleDown } from "react-icons/bs";
+import Error from "../helpers/CreateNotification";
 
 const Header = () => {
   const { busqueda, resultado } = useClima();
@@ -31,6 +32,7 @@ const Header = () => {
       <div className="main">
         <div className="icons">
           <div className="iconLeft">
+            
             <HiOutlineLocationMarker className="iconH" />
             <p>{resultado.name}</p>
           </div>

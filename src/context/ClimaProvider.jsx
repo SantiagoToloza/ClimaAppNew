@@ -1,5 +1,8 @@
 import axios from "axios";
 import { createContext, useState, useEffect } from "react";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const ClimaContext = createContext();
 const apiKey = import.meta.env.VITE_api_key;
@@ -16,7 +19,6 @@ const ClimaProvider = ({ children }) => {
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState();
   const [status, setStatus] = useState(null);
-  const [location, setLocation] = useState(false);
   const [guardarCiudad, setGuardarCiudad] = useState([]);
   const [guardarId, setGuardarId] = useState([]);
   console.log(lat);
@@ -47,30 +49,38 @@ const ClimaProvider = ({ children }) => {
     console.log(url);
     try {
       const { data } = await axios.get(url);
+      toast.success('Search completed')
 
       setGuardarId([...guardarId, data.id]);
       if (!guardarId.includes(data.id)) {
+        
         setResultado(data);
         setGuardarCiudad([...guardarCiudad, data]);
         console.log(data);
       }
       console.log(data);
     } catch (error) {
-      console.log(error);
+      toast.error('Not found')
+      
     }
   };
 
   const busquedaManual = async (e) => {
     e.preventDefault();
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=${apiKey}`;
-    const { data } = await axios(url);
+    try {
+      const { data } = await axios(url);
+    toast.success('Sucess')
 
     setGuardarId([...guardarId, data.id]);
     if (!guardarId.includes(data.id)) {
       setResultado(data);
       setGuardarCiudad([...guardarCiudad, data]);
-      console.log(data);
     }
+    } catch (error) {
+      toast.error('not found')
+    }
+    
   };
 
   const datosBusqueda = (e) => {
@@ -82,6 +92,7 @@ const ClimaProvider = ({ children }) => {
   };
 
   const eliminarCiudad = (id) => {
+    toast.success('deleted')
     console.log(id);
     const eliminando = guardarCiudad.filter((elim) => id !== elim.id);
     const eliminandoId = guardarId.filter((elimId) => id !== elimId);

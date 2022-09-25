@@ -18,14 +18,8 @@ const ClimaProvider = ({ children }) => {
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState();
   const [status, setStatus] = useState(null);
-  const [guardarCiudad, setGuardarCiudad] = useState(JSON.parse(localStorage.getItem("guardarCiudad") ||  '[]}' ));
-  const [guardarId, setGuardarId] = useState(JSON.parse(localStorage.getItem("guardarId") ||  '[] }'));
-  const [renderizarComponente, setRenderizarComponente] = useState(false)
-
-  useEffect(() => {
-    localStorage.setItem("guardarCiudad", JSON.stringify(guardarCiudad));
-    localStorage.setItem("guardarId", JSON.stringify(guardarId));
-  }, [guardarCiudad]);
+  const [guardarCiudad, setGuardarCiudad] = useState([])
+  const [guardarId, setGuardarId] = useState([])
 
 
 
@@ -58,7 +52,6 @@ const ClimaProvider = ({ children }) => {
       toast.success("Search completed");
 
       setGuardarId([...guardarId, data.id]);
-      setRenderizarComponente(true)
       if (!guardarId.includes(data.id)) {
         setResultado(data);
         setGuardarCiudad([...guardarCiudad, data]);
@@ -81,13 +74,12 @@ const ClimaProvider = ({ children }) => {
         setResultado(data);
         setGuardarCiudad([...guardarCiudad, data]);
         toast.success(`City added ${data.name}`);
-        setRenderizarComponente(true)
       } else {
         toast.error("The city has already been addeds");
       }
     } catch (error) {
       toast.error("not found city");
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -120,7 +112,6 @@ const ClimaProvider = ({ children }) => {
         busquedaManual,
         buscarLocalidad,
         eliminarCiudad,
-        renderizarComponente
       }}
     >
       {children}

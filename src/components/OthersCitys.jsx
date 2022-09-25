@@ -3,10 +3,10 @@ import "../styles/Oc.css";
 import City from "./City";
 
 const OthersCitys = () => {
-  const { guardarCiudad, renderizarComponente } = useClima();
+  const { guardarCiudad } = useClima();
   return (
     <>
-      {renderizarComponente == true && (
+      {guardarCiudad && (
         <div className="mainOthers">
           {guardarCiudad.map((ciudad) => (
             <City ciudad={ciudad} key={ciudad.name} />

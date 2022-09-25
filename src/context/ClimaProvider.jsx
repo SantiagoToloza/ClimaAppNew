@@ -1,8 +1,7 @@
 import axios from "axios";
 import { createContext, useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
-
+import "react-toastify/dist/ReactToastify.css";
 
 const ClimaContext = createContext();
 const apiKey = import.meta.env.VITE_api_key;
@@ -19,9 +18,15 @@ const ClimaProvider = ({ children }) => {
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState();
   const [status, setStatus] = useState(null);
-  const [guardarCiudad, setGuardarCiudad] = useState([]);
-  const [guardarId, setGuardarId] = useState([]);
-  console.log(lat);
+  const [guardarCiudad, setGuardarCiudad] = useState(JSON.parse(localStorage.getItem("guardarCiudad") || '{guardarCiudad: "default value"}' ));
+  const [guardarId, setGuardarId] = useState(JSON.parse(localStorage.getItem("guardarId")|| 'guardarId : "default value" '));
+
+  useEffect(() => {
+    localStorage.setItem("guardarCiudad", JSON.stringify(guardarCiudad));
+    localStorage.setItem("guardarId", JSON.stringify(guardarId));
+  }, [guardarCiudad]);
+
+ 
 
   const buscarLocalidad = () => {
     if (!navigator.geolocation) {
@@ -49,19 +54,17 @@ const ClimaProvider = ({ children }) => {
     console.log(url);
     try {
       const { data } = await axios.get(url);
-      toast.success('Search completed')
+      toast.success("Search completed");
 
       setGuardarId([...guardarId, data.id]);
       if (!guardarId.includes(data.id)) {
-        
         setResultado(data);
         setGuardarCiudad([...guardarCiudad, data]);
         console.log(data);
       }
       console.log(data);
     } catch (error) {
-      toast.error('Not found')
-      
+      toast.error("Not found");
     }
   };
 
@@ -70,17 +73,18 @@ const ClimaProvider = ({ children }) => {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=${apiKey}`;
     try {
       const { data } = await axios(url);
-    toast.success('Sucess')
 
-    setGuardarId([...guardarId, data.id]);
-    if (!guardarId.includes(data.id)) {
-      setResultado(data);
-      setGuardarCiudad([...guardarCiudad, data]);
-    }
+      setGuardarId([...guardarId, data.id]);
+      if (!guardarId.includes(data.id)) {
+        setResultado(data);
+        setGuardarCiudad([...guardarCiudad, data]);
+        toast.success(`City added ${data.name}`);
+      } else {
+        toast.error("The city has already been addeds");
+      }
     } catch (error) {
-      toast.error('not found')
+      toast.error("not found");
     }
-    
   };
 
   const datosBusqueda = (e) => {
@@ -92,7 +96,7 @@ const ClimaProvider = ({ children }) => {
   };
 
   const eliminarCiudad = (id) => {
-    toast.success('deleted')
+    toast.warning("deleted");
     console.log(id);
     const eliminando = guardarCiudad.filter((elim) => id !== elim.id);
     const eliminandoId = guardarId.filter((elimId) => id !== elimId);

@@ -84,6 +84,7 @@ const ClimaProvider = ({ children }) => {
       }
     } catch (error) {
       toast.error("not found");
+      console.log(error)
     }
   };
 

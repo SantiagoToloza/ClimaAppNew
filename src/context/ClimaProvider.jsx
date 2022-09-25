@@ -19,7 +19,7 @@ const ClimaProvider = ({ children }) => {
   const [lng, setLng] = useState();
   const [status, setStatus] = useState(null);
   const [guardarCiudad, setGuardarCiudad] = useState(JSON.parse(localStorage.getItem("guardarCiudad") || '{"guardarCiudad": []}' ));
-  const [guardarId, setGuardarId] = useState(JSON.parse(localStorage.getItem("guardarId") || '{"guardarId": [] }'));
+  const [guardarId, setGuardarId] = useState(JSON.parse(localStorage.getItem("guardarId") || '{"guardarId" : [] }')
 
   useEffect(() => {
     localStorage.setItem("guardarCiudad", JSON.stringify(guardarCiudad));

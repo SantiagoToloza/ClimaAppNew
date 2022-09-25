@@ -83,7 +83,7 @@ const ClimaProvider = ({ children }) => {
         toast.error("The city has already been addeds");
       }
     } catch (error) {
-      toast.error("not found");
+      toast.error("not found city");
       console.log(error)
     }
   };

@@ -6,13 +6,13 @@ const OthersCitys = () => {
   const { guardarCiudad } = useClima();
   return (
     <>
-      {guardarCiudad || guardarCiudad.main ?  (
+      
         <div className="mainOthers">
-          {guardarCiudad.map((ciudad) => (
+          {guardarCiudad.name && guardarCiudad.map((ciudad) => (
             <City ciudad={ciudad} key={ciudad.name} />
           ))}
         </div>
-      ) : null} 
+       
     </>
   );
 };

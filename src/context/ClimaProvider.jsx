@@ -18,17 +18,18 @@ const ClimaProvider = ({ children }) => {
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState();
   const [status, setStatus] = useState(null);
-  const [guardarCiudad, setGuardarCiudad] = useState(
-    JSON.parse(localStorage.getItem("guardarCiudad") || '{"guardarCiudad": []}')
-  );
-  const [guardarId, setGuardarId] = useState(
-    JSON.parse(localStorage.getItem("guardarId") || '{"guardarId": [] }')
-  );
 
+  const getCitiesFromLS = () =>
+    JSON.parse(
+      localStorage.getItem("guardarCiudad") || '{"guardarCiudad": []}'
+    );
+
+  const [guardarCiudad, setGuardarCiudad] = useState(getCitiesFromLS);
   useEffect(() => {
     localStorage.setItem("guardarCiudad", JSON.stringify(guardarCiudad));
-    localStorage.setItem("guardarId", JSON.stringify(guardarId));
   }, [guardarCiudad]);
+
+  console.log(guardarCiudad);
 
   const buscarLocalidad = () => {
     if (!navigator.geolocation) {
@@ -58,7 +59,6 @@ const ClimaProvider = ({ children }) => {
       const { data } = await axios.get(url);
       toast.success("Search completed");
 
-      setGuardarId([...guardarId, data.id]);
       if (!guardarId.includes(data.id)) {
         setResultado(data);
         setGuardarCiudad([...guardarCiudad, data]);
@@ -75,17 +75,15 @@ const ClimaProvider = ({ children }) => {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=${apiKey}`;
     try {
       const { data } = await axios(url);
-
-      setGuardarId([...guardarId, data.id]);
-      if (!guardarId.includes(data.id)) {
+      if (!guardarCiudad.find((id) => id.id === data.id)) {
+        toast.success(`City added ${data.name}`);
         setResultado(data);
         setGuardarCiudad([...guardarCiudad, data]);
-        toast.success(`City added ${data.name}`);
       } else {
-        toast.error("The city has already been addeds");
+        toast.error("not found city");
+        console.log('ya esta la ciudad')
       }
     } catch (error) {
-      toast.error("not found city");
       console.log(error);
     }
   };
@@ -102,9 +100,7 @@ const ClimaProvider = ({ children }) => {
     toast.warning("deleted");
     console.log(id);
     const eliminando = guardarCiudad.filter((elim) => id !== elim.id);
-    const eliminandoId = guardarId.filter((elimId) => id !== elimId);
     setGuardarCiudad(eliminando);
-    setGuardarId(eliminandoId);
   };
 
   return (

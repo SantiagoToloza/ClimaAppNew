@@ -8,7 +8,7 @@ const OthersCitys = () => {
     <>
       { guardarCiudad && 
         <div className="mainOthers">
-          {guardarCiudad.map((ciudad) => (
+          {  guardarCiudad.map((ciudad) => (
             <City ciudad={ciudad} key={ciudad.name} />
           ))}
         </div>

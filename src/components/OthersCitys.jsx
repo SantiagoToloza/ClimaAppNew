@@ -3,16 +3,16 @@ import "../styles/Oc.css";
 import City from "./City";
 
 const OthersCitys = () => {
-  const { guardarCiudad } = useClima();
+  const { guardarCiudad, renderizarComponente } = useClima();
   return (
     <>
-      {guardarCiudad ?  (
+      {renderizarComponente == true && (
         <div className="mainOthers">
           {guardarCiudad.map((ciudad) => (
             <City ciudad={ciudad} key={ciudad.name} />
           ))}
         </div>
-      ): null}
+      )}
     </>
   );
 };

@@ -74,7 +74,7 @@ const ClimaProvider = ({ children }) => {
     try {
       const { data } = await axios(url);
       setResultado(data);
-      if (!guardarCiudad.find((id) => id.id === data.id)) {
+      if (!guardarCiudad.find((id) => id.id == data.id)) {
         toast.success(`City added ${data.name}`);
         setGuardarCiudad([...guardarCiudad, data]);
       } else {

@@ -17,8 +17,6 @@ const ClimaProvider = ({ children }) => {
 
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState();
-  const [status, setStatus] = useState(null);
-  const [render, setRender] = useState(false)
 
   const getCitiesFromLS = () =>
     JSON.parse(
@@ -39,12 +37,10 @@ const ClimaProvider = ({ children }) => {
       setStatus("Locating...");
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          setStatus(null);
           setLat(position.coords.latitude);
           setLng(position.coords.longitude);
         },
         () => {
-          setStatus("Unable to retrieve your location");
         }
       );
     }
@@ -53,41 +49,41 @@ const ClimaProvider = ({ children }) => {
     }
   };
 
-  const realizarBusqueda = async () => {
-    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${apiKey}`;
-    console.log(url);
-    try {
-      const { data } = await axios.get(url);
-      toast.success("Search completed");
-
-      if (!guardarId.includes(data.id)) {
-        setResultado(data);
-        setGuardarCiudad([...guardarCiudad, data]);
-        setRender(true)
-        console.log(data);
-      }
-      console.log(data);
-    } catch (error) {
-      toast.error("Not found");
-    }
-  };
+  // const realizarBusqueda = async () => {
+  //   const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${apiKey}`;
+  //   console.log(url);
+  //   try {
+  //     const { data } = await axios.get(url);
+  //     toast.success("Search completed");
+      
+  //     if (!guardarId.includes(data.id)) {
+  //       setResultado(data);
+  //       setGuardarCiudad([...guardarCiudad, data]);
+  //       setRender(true);
+  //       console.log(data);
+  //     }
+  //     console.log(data);
+  //   } catch (error) {
+  //     toast.error("Not found");
+  //   }
+  // };
 
   const busquedaManual = async (e) => {
     e.preventDefault();
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=${apiKey}`;
     try {
       const { data } = await axios(url);
-        if(!guardarCiudad.find((id) => id.id === data.id)) {
+      if (!guardarCiudad.find((id) => id.id === data.id)) {
         toast.success(`City added ${data.name}`);
         setResultado(data);
         setGuardarCiudad([...guardarCiudad, data]);
       } else {
         toast.error("not found city");
-        console.log('ya esta la ciudad')
-      }  
+        console.log("ya esta la ciudad");
+      }
     } catch (error) {
       console.log(error);
-      toast.error(error)
+      toast.error(error);
     }
   };
 

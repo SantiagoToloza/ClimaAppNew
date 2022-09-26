@@ -11,7 +11,7 @@ const App = () => {
     <ClimaProvider>
       <Header />
       <Error />
-      {guardarCiudad[0].name && <OthersCitys />}
+      {guardarCiudad.name && <OthersCitys />}
     </ClimaProvider>
   );
 };

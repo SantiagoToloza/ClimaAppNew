@@ -4,9 +4,9 @@ import React from "react";
 import OthersCitys from "./components/OthersCitys";
 import Error from "./components/Error";
 import useClima from "./Hooks/useClima";
-const { guardarCiudad } = useClima();
 
 const App = () => {
+  const { guardarCiudad } = useClima();
   return (
     <ClimaProvider>
       <Header />

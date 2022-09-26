@@ -73,9 +73,9 @@ const ClimaProvider = ({ children }) => {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=${apiKey}`;
     try {
       const { data } = await axios(url);
-      if (!guardarCiudad.find((id) => id.id === data.id)) {
+      setResultado(data);
+      if (guardarCiudad && !guardarCiudad.find((id) => id.id === data.id)) {
         toast.success(`City added ${data.name}`);
-        setResultado(data);
         setGuardarCiudad([...guardarCiudad, data]);
       } else {
         toast.error("not found city");

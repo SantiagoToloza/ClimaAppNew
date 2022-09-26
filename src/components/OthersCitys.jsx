@@ -4,15 +4,16 @@ import City from "./City";
 
 const OthersCitys = () => {
   const { guardarCiudad } = useClima();
+
   return (
     <>
-      {guardarCiudad.includes('name') && (
+      {guardarCiudad[0]?.main ? (
         <div className="mainOthers">
           {guardarCiudad.map((ciudad) => (
-            <City ciudad={ciudad} key={ciudad.name} />
+            <City ciudad={ciudad} key={ciudad.id} />
           ))}
         </div>
-      )}
+      ) : null}
     </>
   );
 };

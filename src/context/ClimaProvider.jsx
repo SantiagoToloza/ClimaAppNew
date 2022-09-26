@@ -18,6 +18,7 @@ const ClimaProvider = ({ children }) => {
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState();
   const [status, setStatus] = useState(null);
+  const [render, setRender] = useState(false)
 
   const getCitiesFromLS = () =>
     JSON.parse(
@@ -62,6 +63,7 @@ const ClimaProvider = ({ children }) => {
       if (!guardarId.includes(data.id)) {
         setResultado(data);
         setGuardarCiudad([...guardarCiudad, data]);
+        setRender(true)
         console.log(data);
       }
       console.log(data);

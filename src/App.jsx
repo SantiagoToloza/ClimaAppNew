@@ -5,11 +5,12 @@ import OthersCitys from "./components/OthersCitys";
 import Error from "./components/Error";
 
 const App = () => {
+  
   return (
     <ClimaProvider>
       <Header />
       <Error />
-      <OthersCitys />
+     <OthersCitys/>
     </ClimaProvider>
   );
 };

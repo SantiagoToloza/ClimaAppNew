@@ -7,7 +7,7 @@ const OthersCitys = () => {
 
   return (
     <>
-      {guardarCiudad[0]?.main ? (
+      {guardarCiudad && guardarCiudad.length ? (
         <div className="mainOthers">
           {guardarCiudad.map((ciudad) => (
             <City ciudad={ciudad} key={ciudad.id} />

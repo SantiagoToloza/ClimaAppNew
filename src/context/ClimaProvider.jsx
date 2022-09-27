@@ -40,8 +40,7 @@ const ClimaProvider = ({ children }) => {
           setLat(position.coords.latitude);
           setLng(position.coords.longitude);
         },
-        () => {
-        }
+        () => {}
       );
     }
     if (lat != null) {
@@ -55,7 +54,7 @@ const ClimaProvider = ({ children }) => {
   //   try {
   //     const { data } = await axios.get(url);
   //     toast.success("Search completed");
-      
+
   //     if (!guardarId.includes(data.id)) {
   //       setResultado(data);
   //       setGuardarCiudad([...guardarCiudad, data]);
@@ -77,6 +76,7 @@ const ClimaProvider = ({ children }) => {
       if (!guardarCiudad.find((id) => id.id == data.id)) {
         toast.success(`City added ${data.name}`);
         setGuardarCiudad([...guardarCiudad, data]);
+        setResultado(data);
       } else {
         toast.error("not found city");
         console.log("ya esta la ciudad");

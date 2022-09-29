@@ -17,6 +17,7 @@ const ClimaProvider = ({ children }) => {
 
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState();
+  const [status, setStatus] = useState("");
 
   const getCitiesFromLS = () =>
     JSON.parse(
@@ -48,24 +49,22 @@ const ClimaProvider = ({ children }) => {
     }
   };
 
-  // const realizarBusqueda = async () => {
-  //   const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${apiKey}`;
-  //   console.log(url);
-  //   try {
-  //     const { data } = await axios.get(url);
-  //     toast.success("Search completed");
-
-  //     if (!guardarId.includes(data.id)) {
-  //       setResultado(data);
-  //       setGuardarCiudad([...guardarCiudad, data]);
-  //       setRender(true);
-  //       console.log(data);
-  //     }
-  //     console.log(data);
-  //   } catch (error) {
-  //     toast.error("Not found");
-  //   }
-  // };
+  const realizarBusqueda = async () => {
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${apiKey}`;
+    console.log(url);
+    try {
+      const { data } = await axios.get(url);
+      toast.success("Search completed");
+      setResultado(data);
+      if (!guardarCiudad?.find((id) => id.id == data.id)) {
+        setGuardarCiudad([...guardarCiudad, data]);
+        console.log(data);
+      }
+      console.log(data);
+    } catch (error) {
+      toast.error("Ubication Error");
+    }
+  };
 
   const busquedaManual = async (e) => {
     e.preventDefault();

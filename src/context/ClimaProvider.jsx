@@ -21,7 +21,7 @@ const ClimaProvider = ({ children }) => {
 
   const getCitiesFromLS = () =>
     JSON.parse(
-      localStorage.getItem("guardarCiudad") || '{"guardarCiudad": []}'
+      localStorage.getItem("guardarCiudad") || '"guardarCiudad": []'
     );
 
   const [guardarCiudad, setGuardarCiudad] = useState(getCitiesFromLS);
@@ -41,12 +41,14 @@ const ClimaProvider = ({ children }) => {
           setLat(position.coords.latitude);
           setLng(position.coords.longitude);
         },
+
         () => {}
       );
     }
-    if (lat != null) {
-      realizarBusqueda();
+    if(lat != null){
+      realizarBusqueda()
     }
+    
   };
 
   const realizarBusqueda = async () => {
@@ -82,7 +84,7 @@ const ClimaProvider = ({ children }) => {
       }
     } catch (error) {
       console.log(error);
-      toast.error(error);
+      toast.error('not found city');
     }
   };
 
@@ -105,10 +107,8 @@ const ClimaProvider = ({ children }) => {
     <ClimaContext.Provider
       value={{
         busqueda,
-        datosBusqueda,
         resultado,
         guardarCiudad,
-        busqueda,
         datosBusqueda,
         busquedaManual,
         buscarLocalidad,

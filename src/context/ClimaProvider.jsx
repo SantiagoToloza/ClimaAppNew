@@ -19,15 +19,27 @@ const ClimaProvider = ({ children }) => {
   const [lng, setLng] = useState();
   const [status, setStatus] = useState("");
 
-  const getCitiesFromLS = () =>
-    JSON.parse(
-      localStorage.getItem("guardarCiudad") || '"guardarCiudad": []'
-    );
+  // const getCitiesFromLS = () =>
+  //   JSON.parse(
+  //     localStorage.getItem("guardarCiudad") || '"guardarCiudad": []'
+  //   );
 
-  const [guardarCiudad, setGuardarCiudad] = useState(getCitiesFromLS);
+  const getCitiesFromLS = () => {
+    if (localStorage.getItem("guardarCiudad").length) {
+      setGuardarCiudad(JSON.parse(localStorage.getItem("guardarCiudad")));
+    } else {
+      localStorage.setItem("guardarCiudad", JSON.stringify([]));
+    }
+  };
+
+  const [guardarCiudad, setGuardarCiudad] = useState([]);
   useEffect(() => {
     localStorage.setItem("guardarCiudad", JSON.stringify(guardarCiudad));
   }, [guardarCiudad]);
+
+  useEffect(() => {
+    getCitiesFromLS();
+  }, []);
 
   console.log(guardarCiudad);
 
@@ -45,10 +57,9 @@ const ClimaProvider = ({ children }) => {
         () => {}
       );
     }
-    if(lat != null){
-      realizarBusqueda()
+    if (lat != null) {
+      realizarBusqueda();
     }
-    
   };
 
   const realizarBusqueda = async () => {
@@ -84,7 +95,7 @@ const ClimaProvider = ({ children }) => {
       }
     } catch (error) {
       console.log(error);
-      toast.error('not found city');
+      toast.error("not found city");
     }
   };
 

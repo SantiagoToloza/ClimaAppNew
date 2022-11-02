@@ -5,6 +5,7 @@ const City = ({ ciudad }) => {
   const Kelvin = 273.15;
   const {eliminarCiudad} = useClima()
   const { main, weather } = ciudad;
+  console.log(ciudad)
   return (
     <div className="mainCity">
       <div className="close">
